@@ -58,17 +58,19 @@ st.markdown(
 # =========================
 @st.cache_resource
 def load_files():
-    model = joblib.load("best_model_classifier.pkl")
-    scaler = joblib.load("scaler.pkl")
+    saved = joblib.load("best_churn_model_with_scalerr.pkl")
+
+    model = saved["model"]
+    scaler = saved["scaler"]
     feature_columns = joblib.load("feature_columns.pkl")
+
     return model, scaler, feature_columns
 
 try:
     model, scaler, feature_columns = load_files()
 except FileNotFoundError:
-    st.error("Erreur : Un fichier du modèle est introuvable. Vérifiez best_model_classifier.pkl, scaler.pkl et feature_columns.pkl.")
+    st.error("Erreur : Vérifiez que best_churn_model_with_scalerr.pkl et feature_columns.pkl sont dans le même dossier que appp.py.")
     st.stop()
-
 # =========================
 # Titre
 # =========================
